@@ -1,6 +1,3 @@
-const anArray = [8, 7, 6, 5, 4, 3, 2, 1]
-console.log(mergeSort(anArray))
-
 function mergeSort (arrayIn) {
   if (arrayIn.length < 2) return arrayIn
   const halfway = Math.trunc(arrayIn.length / 2, 0)
@@ -16,3 +13,5 @@ function merge (array1, array2) {
   }
   return [array2[0]].concat(merge(array1, array2.slice(1)))
 }
+
+module.exports = mergeSort
