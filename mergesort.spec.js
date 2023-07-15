@@ -11,8 +11,7 @@ describe('builtInSort', () => {
   test('million element array (generated randomly)', function() {
     expect(sortedLongArray.sort((a, b) => (a - b))).toEqual(sortedLongArray)
   })
-}) /* sortedLongArray.sort((a, b) => (a - b)) required for other tests */
-
+})
 describe('mergeSort', () => { myTest(mergeSort) })
 
 function myTest(mergeSort) {
@@ -41,7 +40,7 @@ function myTest(mergeSort) {
     expect(mergeSort(['one', 'two', 'three', 'four', 'five'])).toEqual(['five', 'four', 'one', 'three', 'two'])
   })
   test('handles numeric strings', function () {
-    expect(mergeSort('1','10','100','200','20','2')).toEqual(['1','10','100','2','20','200'])
+    expect(mergeSort(['1','10','100','200','20','2'])).toEqual(['1','10','100','2','20','200'])
   })
   test('million element array (generated randomly)', function() {
     expect(mergeSort(longArray)).toEqual(sortedLongArray)
