@@ -1,17 +1,21 @@
 function mergeSort (arrayIn) {
   if (arrayIn.length < 2) return arrayIn
   const halfway = Math.trunc(arrayIn.length / 2, 0)
-  const left = arrayIn.slice(0, halfway)
-  const right = arrayIn.slice(halfway)
-  return merge(mergeSort(left), mergeSort(right))
-}
-function merge (array1, array2) {
-  if (array1.length === 0) return array2
-  if (array2.length === 0) return array1
-  if (array1[0] < array2[0]) {
-    return [array1[0]].concat(merge(array1.slice(1), array2))
+  const left = mergeSort(arrayIn.slice(0, halfway))
+  const right = mergeSort(arrayIn.slice(halfway))
+  const arrayOut = []
+  let leftPointer = 0
+  let rightPointer = 0
+  while (leftPointer < left.length && rightPointer < right.length) {
+    if (left[leftPointer] < right[rightPointer]) {
+      arrayOut.push(left[leftPointer++])
+    } else {
+      arrayOut.push(right[rightPointer++])
+    }
   }
-  return [array2[0]].concat(merge(array1, array2.slice(1)))
+  while (leftPointer < left.length) arrayOut.push(left[leftPointer++])
+  while (rightPointer < right.length) arrayOut.push(right[rightPointer++])
+  return arrayOut
 }
 
 module.exports = mergeSort
