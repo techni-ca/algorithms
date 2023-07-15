@@ -7,14 +7,18 @@ for (let i = 0; i < 1000000; i++) {
   longArray.push(randomNumber)
   sortedLongArray.push(randomNumber)
 }
-describe('builtInSort', () => {
+//sortedLongArray.sort((a, b) => (a - b))
+describe('built-in sort (on original array)', () => {
   test('million element array (generated randomly)', function() {
     expect(sortedLongArray.sort((a, b) => (a - b))).toEqual(sortedLongArray)
   })
 })
-describe('mergeSort', () => { myTest(mergeSort) })
-
-function myTest(mergeSort) {
+describe('copy original array and use built-in sort', () => {
+  test('million element array (generated randomly)', function() {
+    expect([...longArray].sort((a, b) => (a - b))).toEqual(sortedLongArray)
+  })
+})
+describe('mergeSort', function () {
   test('handles empty set', function() {
     expect(mergeSort([])).toEqual([])
   })
@@ -45,4 +49,7 @@ function myTest(mergeSort) {
   test('million element array (generated randomly)', function() {
     expect(mergeSort(longArray)).toEqual(sortedLongArray)
   })
-}
+  test('million element array (presorted)', function () {
+    expect(mergeSort(sortedLongArray)).toEqual(sortedLongArray)
+  })
+})
