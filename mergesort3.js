@@ -13,7 +13,9 @@ function mergeSort (arrayIn) {
       arrayOut.push(right[rightPointer++])
     }
   }
-  return arrayOut.concat(left).concat(right)
+  while (leftPointer < left.length) arrayOut.push(left[leftPointer++])
+  while (rightPointer < right.length) arrayOut.push(right[rightPointer++])
+  return arrayOut
 }
 
 module.exports = mergeSort
