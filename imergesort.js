@@ -4,11 +4,13 @@ function mergeSort (arrayIn) {
     for (let i = 0; i * blockSize < arrayIn.length; i+=2) {
       let leftPointer = i * blockSize
       let rightPointer = leftPointer + blockSize
-      const leftEnd = Math.min(arrayIn.length, rightPointer)
+      if (rightPointer > arrayIn.length) rightPointer = arrayIn.length
+      const leftEnd = rightPointer
       const rightEnd = Math.min(arrayIn.length, rightPointer + blockSize)
+
       while (leftPointer < leftEnd || rightPointer < rightEnd) {
         if (
-          rightPointer >= rightEnd ||
+          rightPointer === rightEnd ||
           (leftPointer < leftEnd && arrayIn[leftPointer] < arrayIn[rightPointer])
         ) {
           arrayOut.push(arrayIn[leftPointer++])
