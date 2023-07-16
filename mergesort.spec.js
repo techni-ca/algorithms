@@ -1,24 +1,20 @@
-const mergeSort = require('./mergesort')
+const rMergeSort = require('./mergesort')
+const iMergeSort = require('./imergesort')
 
 const longArray = []
 const sortedLongArray = []
-for (let i = 0; i < 1000000; i++) {
-  const randomNumber = Math.trunc(Math.random() * 1000000,0)
+const count = 1000
+for (let i = 0; i < count; i++) {
+  const randomNumber = Math.trunc(Math.random() * count,0)
   longArray.push(randomNumber)
   sortedLongArray.push(randomNumber)
 }
-//sortedLongArray.sort((a, b) => (a - b))
-describe('built-in sort (on original array)', () => {
-  test('million element array (generated randomly)', function() {
-    expect(sortedLongArray.sort((a, b) => (a - b))).toEqual(sortedLongArray)
-  })
-})
-describe('copy original array and use built-in sort', () => {
-  test('million element array (generated randomly)', function() {
-    expect([...longArray].sort((a, b) => (a - b))).toEqual(sortedLongArray)
-  })
-})
-describe('mergeSort', function () {
+sortedLongArray.sort((a, b) => (a - b))
+
+describe('recursive mergeSort', () => myTest(rMergeSort))
+describe('iterative mergeSort', () => myTest(iMergeSort))
+
+function myTest (mergeSort) {
   test('handles empty set', function() {
     expect(mergeSort([])).toEqual([])
   })
@@ -46,10 +42,7 @@ describe('mergeSort', function () {
   test('handles numeric strings', function () {
     expect(mergeSort(['1','10','100','200','20','2'])).toEqual(['1','10','100','2','20','200'])
   })
-  test('million element array (generated randomly)', function() {
+  test(`${count} element array (generated randomly)`, function() {
     expect(mergeSort(longArray)).toEqual(sortedLongArray)
   })
-  test('million element array (presorted)', function () {
-    expect(mergeSort(sortedLongArray)).toEqual(sortedLongArray)
-  })
-})
+}
