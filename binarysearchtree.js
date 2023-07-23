@@ -7,6 +7,9 @@ class Node {
 }
 class Tree {
   constructor (inArray) {
+    inArray.sort().filter(function (element, index, array) {
+      return (index === 0 || array[index - 1] !== element)
+    })
     this.root = buildTree(inArray.sort())
   }
   buildTree (sortedArray) {
