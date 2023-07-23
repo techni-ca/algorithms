@@ -1,0 +1,1 @@
+const tree = require('./binarysearchtree')
