@@ -143,6 +143,50 @@ class Tree {
   find (value) {
     return this.root.find(value)
   }
+  levelOrder (inCallback = null) {
+    const queue = [this.root]
+    let index = 0
+    while (index < queue.length) {
+      const current = queue[index]
+      if (current.leftNode !== null) queue.push(current.leftNode)
+      if (current.rightNode !== null) queue.push(current.rightNode)
+      if (inCallback !== null) inCallback(current)
+      queue[index] = current.value
+      index++
+    }
+    if (inCallback === null) return queue
+  }
+  inOrder (inCallback = null) {
+    return this._depthFirst('in',inCallback)
+  }
+  preOrder (inCallback = null) {
+    return this._depthFirst('pre',inCallback)
+  }
+  postOrder (inCallback = null) {
+    return this._depthFirst('post',inCallback)
+  }
+  _depthFirst (orderType, inCallback = null) {
+    const list = this._depth(this.root, orderType)
+    const output = []
+    list.forEach((node) => {
+      if (inCallback === null) 
+        output.push(node.value)
+      else
+        inCallback(node)
+      })
+    if (inCallback === null) return output
+  }
+  _depth (node, orderType) {
+    if (node === null) return []
+    const left = this._depth(node.leftNode, orderType)
+    const right = this._depth(node.rightNode, orderType)
+    switch (orderType) {
+      case 'in': return left.concat([node]).concat(right)
+      case 'pre': return [node].concat(left).concat(right)
+      case 'post': return left.concat(right).concat([node])
+    }
+  }
+  
 }
 
 module.exports = Tree
