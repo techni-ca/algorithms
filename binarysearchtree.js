@@ -86,6 +86,16 @@ class Node {
       return this.leftNode === null ? null : this.leftNode.find(valueToFind)
     return this
   }
+  height () {
+    const leftHeight = (this.leftNode === null) ? 0 : this.leftNode.height()
+    const rightHeight = (this.rightNode === null) ? 0 : this.rightNode.height()
+    return Math.max(leftHeight,rightHeight) + 1
+  }
+  isBalanced () {
+    const leftHeight = (this.leftNode === null) ? 0 : this.leftNode.height()
+    const rightHeight = (this.rightNode === null) ? 0 : this.rightNode.height()
+    return Math.abs(leftHeight - rightHeight) < 2
+  }
 }
 class Tree {
   constructor (inArray) {
@@ -166,7 +176,7 @@ class Tree {
     return this._depthFirst('post',inCallback)
   }
   _depthFirst (orderType, inCallback = null) {
-    const list = this._depth(this.root, orderType)
+    const list = this._depthFirstDetail(this.root, orderType)
     const output = []
     list.forEach((node) => {
       if (inCallback === null) 
@@ -176,17 +186,30 @@ class Tree {
       })
     if (inCallback === null) return output
   }
-  _depth (node, orderType) {
+  _depthFirstDetail (node, orderType) {
     if (node === null) return []
-    const left = this._depth(node.leftNode, orderType)
-    const right = this._depth(node.rightNode, orderType)
+    const left = this._depthFirstDetail(node.leftNode, orderType)
+    const right = this._depthFirstDetail(node.rightNode, orderType)
     switch (orderType) {
       case 'in': return left.concat([node]).concat(right)
       case 'pre': return [node].concat(left).concat(right)
       case 'post': return left.concat(right).concat([node])
     }
   }
-  
+  depth (node) {
+    return this.root.height() - node.height()
+  }
+  isBalanced () {
+    let result = true
+    this.levelOrder((node) => {
+      result = result && node.isBalanced()
+    })
+    return result
+  }
+  rebalance () {
+    const newTreeArray = this.inOrder()
+    this.root = this.buildTree(newTreeArray)
+  } 
 }
 
 module.exports = Tree
