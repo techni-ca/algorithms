@@ -1,7 +1,7 @@
 function mergeSort (arrayIn) {
   for (let blockSize = 1; blockSize < arrayIn.length; blockSize *= 2) {
     const arrayOut = []
-    for (let i = 0; i * blockSize < arrayIn.length; i+=2) {
+    for (let i = 0; i * blockSize < arrayIn.length; i += 2) {
       let leftPointer = i * blockSize
       let rightPointer = leftPointer + blockSize
       if (rightPointer > arrayIn.length) rightPointer = arrayIn.length

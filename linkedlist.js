@@ -5,50 +5,57 @@ class LinkedList {
       this._head = new Node(value)
     }
   }
+
   append (value) {
     if (this._head === null) {
-      this._head = new Node (value)
+      this._head = new Node(value)
     } else {
-      this.tail().next = new Node (value)
+      this.tail().next = new Node(value)
     }
     return this
   }
+
   prepend (value) {
     const oldHead = this._head
     this._head = new Node(value)
     this._head.next = oldHead
     return this
   }
+
   size () {
     let count = 0
     let node = this._head
     while (node !== null) {
       count++
-      node = node.next      
-    } 
+      node = node.next
+    }
     return count
   }
+
   head () {
     return this._head
   }
+
   tail () {
     if (this._head === null) return null
-    
+
     let node = this._head
     while (node.next !== null) {
       node = node.next
     }
     return node
   }
+
   at (index) {
     let node = this._head
     let count = 0
     while (node !== null) {
       if (++count === index) return node
-      node = node.next 
+      node = node.next
     }
     return null
   }
+
   pop () {
     if (this._head === null) return null
     let prevNode = null
@@ -64,9 +71,11 @@ class LinkedList {
     }
     return node
   }
+
   contains (value) {
-    return (this.find(value) !== null)
+    return this.find(value) !== null
   }
+
   find (value) {
     let index = 1
     let node = this._head
@@ -77,6 +86,7 @@ class LinkedList {
     }
     return null
   }
+
   toString () {
     let node = this._head
     let output = ''
@@ -86,6 +96,7 @@ class LinkedList {
     }
     return output + 'null'
   }
+
   insertAt (value, index) {
     if (index === 1) {
       const oldHead = this._head
@@ -93,7 +104,7 @@ class LinkedList {
       this._head.next = oldHead
       return true
     } else {
-      let prevNode = this.at(index - 1)
+      const prevNode = this.at(index - 1)
       if (prevNode !== null) {
         const oldNode = prevNode.next
         const newNode = new Node(value)
@@ -104,6 +115,7 @@ class LinkedList {
     }
     return false
   }
+
   removeAt (index) {
     if (index === 1) {
       if (this._head !== null) {
@@ -111,9 +123,9 @@ class LinkedList {
         return true
       }
     } else {
-      let prevNode = this.at(index - 1)
+      const prevNode = this.at(index - 1)
       if (prevNode !== null) {
-        let node = prevNode.next
+        const node = prevNode.next
         if (node !== null) {
           prevNode.next = node.next
           return true
